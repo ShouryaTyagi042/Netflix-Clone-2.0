@@ -1,9 +1,11 @@
 import React from "react";
 import "../assets/css/Navbar.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [show, handleShow] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 100) {
@@ -20,11 +22,13 @@ export default function Navbar() {
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/799px-Netflix_2015_logo.svg.png?20190206123158"
         alt="netflix_logo"
         className="nav_logo"
+        onClick={() => navigate("/")}
       />
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png?20201013161117"
         alt="netflix_logo"
         className="nav_avatar"
+        onClick={() => navigate("/profile")}
       />
     </div>
   );
