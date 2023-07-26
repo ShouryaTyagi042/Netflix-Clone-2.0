@@ -7,7 +7,25 @@ import { loadStripe } from "@stripe/stripe-js";
 
 export default function PlanScreen() {
   const [products, setProducts] = useState([]);
+  const [subscription, setSubscription] = useState(null);
   const user = useSelector(selectUser);
+  useEffect(() => {
+    db.collection("customers")
+      .doc(user.uid)
+      .collection("subscriptions")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach(async (subscriptions) => {
+          setSubscription({
+            role: subscriptions.data().role,
+            current_period_end: subscriptions.data().current_period_end.seconds,
+            current_period_start:
+              subscriptions.data().current_period_start.seconds,
+          });
+        });
+      });
+  }, [user.uid]);
+  console.log(subscription);
   useEffect(() => {
     db.collection("products")
       .where("active", "==", true)
@@ -45,7 +63,7 @@ export default function PlanScreen() {
       }
       if (sessionId) {
         const stripe = await loadStripe(
-          "sk_test_51NYA1iSI3QmM2ZNWa57SYytk3AOMgnG1JSXzu2DXBoMC8z0yDiHU7y84nyuRV96l6f0hZ2Wju7O6zizdyzaSz0DL00LHK9RWyk"
+          "pk_test_51NYA1iSI3QmM2ZNWAIusvCHgl3h2q2wsw9yLVxjg3qsb3oMLZLtZZ5rxirqrb94rqLNLKIDjpXEjyZxFqUJzJFLa00yrrgJ42X"
         );
         stripe.redirectToCheckout({ sessionId });
       }
@@ -53,16 +71,36 @@ export default function PlanScreen() {
   };
   return (
     <div className="planScreen">
+      <br></br>
+      {subscription && (
+        <p>
+          Renewal date:{" "}
+          {new Date(
+            subscription?.current_period_end * 1000
+          ).toLocaleDateString()}
+        </p>
+      )}
       {Object.entries(products).map(([productId, productData]) => {
-        //TODO: logic to check if user subscription is active.
+        const isCurrenPackage = productData.name
+          ?.toLowerCase()
+          .includes(subscription?.role);
         return (
-          <div className="planScreen_plans">
+          <div
+            key={productId}
+            className={`${
+              isCurrenPackage && "planScreen_plans--disabled"
+            } planScreen_plans`}
+          >
             <div className="planScreen_info">
               <h5>{productData.name}</h5>
               <h6>{productData.description}</h6>
             </div>
-            <button onClick={() => loadCheckout(productData.prices.priceId)}>
-              Subscribe
+            <button
+              onClick={() =>
+                !isCurrenPackage && loadCheckout(productData.prices.priceId)
+              }
+            >
+              {isCurrenPackage ? "Current Package" : "Subscribe"}
             </button>
           </div>
         );
