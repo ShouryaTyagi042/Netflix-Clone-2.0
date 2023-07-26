@@ -5,6 +5,7 @@
     background-size: cover;
 }
 
+
 .loginScreen_gradient {
     width: 100%;
     z-index: 1;
@@ -37,4 +38,55 @@
     padding-top: 10px;
     width: 150px;
     object-fit: contain;
+}
+
+.loginScreen_body {
+    position: absolute;
+    top: 30%;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+    z-index: 1;
+    color: #fff;
+    padding: 20px;
+}
+
+.loginScreen_body>h1 {
+    font-size: 3.125rem;
+    margin-bottom: 20px;
+}
+
+.loginScreen_body>h2 {
+    font-size: 2rem;
+    font-weight: 430;
+    margin-bottom: 30px;
+}
+
+.loginScreen_body>h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.loginScreen_input {
+    margin: 20px;
+}
+
+.loginScreen_input>form>input {
+    padding: 10px;
+    outline-width: 0;
+    height: 30px;
+    width: 30%;
+    max-width: 600px;
+    border: none;
+}
+
+.getStarted {
+    padding: 16px 20px;
+    font-size: 1rem;
+    border: none;
+    color: #fff;
+    background-color: #e50914;
+    font-weight: 600;
+    cursor: pointer;
+
 }
