@@ -63,6 +63,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+    .profileScreen {
+        height: max-content;
+    }
 
     .profileScreen_info {
         display: grid;
@@ -90,5 +93,9 @@
 
     .profileScreen_details {
         margin-top: 20px;
+    }
+
+    .profileScreen_plans {
+        margin-bottom: 20px;
     }
 }
