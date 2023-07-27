@@ -61,3 +61,34 @@
     font-weight: 600;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+
+    .profileScreen_info {
+        display: grid;
+    }
+
+    .profileScreen_body {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 20%;
+    }
+
+    .profileScreen_body>h1 {
+        font-size: 40px;
+        font-weight: 400;
+        border-bottom: 1px solid #282c2d;
+        margin-bottom: 20px;
+    }
+
+    .profileScreen_info>img {
+        height: 80px;
+    }
+
+    .profileScreen_details {
+        margin-top: 20px;
+    }
+}

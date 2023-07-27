@@ -25,7 +25,6 @@ export default function PlanScreen() {
         });
       });
   }, [user.uid]);
-  console.log(subscription);
   useEffect(() => {
     db.collection("products")
       .where("active", "==", true)
@@ -45,7 +44,6 @@ export default function PlanScreen() {
         setProducts(products);
       });
   }, []);
-  console.log(products);
   const loadCheckout = async (priceId) => {
     const docRef = await db
       .collection("customers")
